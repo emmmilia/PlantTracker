@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantTracker.Core", "PlantTracker.Core\PlantTracker.Core.csproj", "{D606B626-8A00-48D7-9B87-E0D41F82898F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantTracker.Data", "PlantTracker.Data\PlantTracker.Data.csproj", "{9932AB37-BC45-4CAE-A9CD-D0FD53584E8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantTracker.Wpf", "PlantTracker.Wpf\PlantTracker.Wpf.csproj", "{C407DDEB-A427-4D4D-B70A-3164B8964492}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlantTracker.Tests", "PlantTracker.Tests\PlantTracker.Tests.csproj", "{40F42FE7-EF5F-4C8E-A4A1-06EEEE61AC8A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D606B626-8A00-48D7-9B87-E0D41F82898F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D606B626-8A00-48D7-9B87-E0D41F82898F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D606B626-8A00-48D7-9B87-E0D41F82898F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D606B626-8A00-48D7-9B87-E0D41F82898F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9932AB37-BC45-4CAE-A9CD-D0FD53584E8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9932AB37-BC45-4CAE-A9CD-D0FD53584E8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9932AB37-BC45-4CAE-A9CD-D0FD53584E8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9932AB37-BC45-4CAE-A9CD-D0FD53584E8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C407DDEB-A427-4D4D-B70A-3164B8964492}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C407DDEB-A427-4D4D-B70A-3164B8964492}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C407DDEB-A427-4D4D-B70A-3164B8964492}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C407DDEB-A427-4D4D-B70A-3164B8964492}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40F42FE7-EF5F-4C8E-A4A1-06EEEE61AC8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40F42FE7-EF5F-4C8E-A4A1-06EEEE61AC8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40F42FE7-EF5F-4C8E-A4A1-06EEEE61AC8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40F42FE7-EF5F-4C8E-A4A1-06EEEE61AC8A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
