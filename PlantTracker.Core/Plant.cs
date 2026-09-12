@@ -11,6 +11,7 @@ namespace PlantTracker.Core
         public int Id { get; set; }
         public string Name { get; set; }
         public Species Species { get; set; }
+        public int SpeciesId { get; set; }
         public DateTime LastWatered { get; set; }
         public int? CustomWateringFrequencyDays { get; set; }
         public PlantStatus PlantStatus { get; set; }
@@ -19,11 +20,11 @@ namespace PlantTracker.Core
         public string? Location { get; set; }
         public string? Notes { get; set; }
 
-        public Plant(int id, string name, Species species, DateTime lastWatered, int? customWateringFrequencyDays, PlantStatus plantStatus, DateTime statusLastUpdated, DateTime dateAdded, string? location, string? notes)
+        public Plant(int id, string name, int SpeciesId, DateTime lastWatered, int? customWateringFrequencyDays, PlantStatus plantStatus, DateTime statusLastUpdated, DateTime dateAdded, string? location, string? notes)
         {
             this.Id = id;
             this.Name = name;
-            this.Species = species;
+            this.SpeciesId = SpeciesId;
             this.LastWatered = lastWatered;
             this.CustomWateringFrequencyDays = customWateringFrequencyDays;
             this.PlantStatus = plantStatus;
