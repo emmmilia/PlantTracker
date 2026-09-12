@@ -7,6 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <ListView ItemsSource="{Binding Plants}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Species" DisplayMemberBinding="{Binding Species}" />
+                    <GridViewColumn Header="Date Planted" DisplayMemberBinding="{Binding DatePlanted}" />
+                </GridView>
+            </ListView.View>
     </Grid>
 </Window>
