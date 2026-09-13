@@ -13,11 +13,11 @@ namespace PlantTracker.Core
         public string Description { get; set; }
         public int wateringFrequency { get; set; }
 
-        public Species(int Id, string Name, string description, int wateringFrequency) {
-            this.Id = Id;
-            this.Name = Name;
-            this.Description = description;
-            this.wateringFrequency = wateringFrequency;
-        }
+        //public Species(int Id, string Name, string description, int wateringFrequency) {
+        //    this.Id = Id;
+        //    this.Name = Name;
+        //    this.Description = description;
+        //    this.wateringFrequency = wateringFrequency;
+        //}
     }
 }

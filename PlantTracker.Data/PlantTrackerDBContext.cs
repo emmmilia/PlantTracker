@@ -16,7 +16,8 @@ namespace PlantTracker.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=planttracker.db");
+            var dbPath = System.IO.Path.Combine(AppContext.BaseDirectory, "planttracker.db");
+            optionsBuilder.UseSqlite($"Data Source = {dbPath}");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -17,6 +17,7 @@ public partial class MainWindow : Window
 
         var context = new PlantTrackerDBContext();
         context.Database.Migrate();
+        DBSeeder.Seed(context);
 
         var plantService = new PlantService(context);
         _viewModel = new MainViewModel(plantService);
