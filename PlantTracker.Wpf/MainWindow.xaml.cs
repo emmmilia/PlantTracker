@@ -1,13 +1,7 @@
-﻿using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using Microsoft.EntityFrameworkCore;
+using PlantTracker.Data;
+using PlantTracker.Wpf.ViewModels;
 
 namespace PlantTracker.Wpf;
 
@@ -16,8 +10,21 @@ namespace PlantTracker.Wpf;
 /// </summary>
 public partial class MainWindow : Window
 {
+    private readonly MainViewModel _viewModel;
     public MainWindow()
     {
         InitializeComponent();
+
+        var context = new PlantTrackerDBContext();
+        context.Database.Migrate();
+
+        var plantService = new PlantService(context);
+        _viewModel = new MainViewModel(plantService);
     }
+
+    private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+    {
+        await _viewModel.LoadPlantsAsync();
+    }
+
 }
