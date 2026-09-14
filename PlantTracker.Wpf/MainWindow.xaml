@@ -10,7 +10,9 @@
         Height="450"
         Width="800">
     <Grid>
-        <ListView ItemsSource="{Binding Plants}">
+        <Button Content="Add Plant" Click="AddPlantButton_Click" 
+                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"/>
+        <ListView ItemsSource="{Binding Plants}" Margin="10,50,10,10">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Name"

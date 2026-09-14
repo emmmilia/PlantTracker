@@ -34,8 +34,12 @@ namespace PlantTracker.Core
             this.Notes = notes;
         }
 
+        public Plant()
+        {
+        }
+
         public int GetWateringFrequencyDays() {
-            if (CustomWateringFrequencyDays != null) { 
+            if (CustomWateringFrequencyDays != null) {
                 return CustomWateringFrequencyDays.Value;
             }
             else
