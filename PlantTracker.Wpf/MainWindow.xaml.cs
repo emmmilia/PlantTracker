@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using Microsoft.EntityFrameworkCore;
 using PlantTracker.Data;
 using PlantTracker.Wpf.ViewModels;
@@ -26,6 +27,14 @@ public partial class MainWindow : Window
     { 
         var addWindow = new AddPlantWindow(_plantService); 
         addWindow.ShowDialog();
+        await _viewModel.LoadPlantsAsync();
+    }
+
+    private async void WaterButton_Click(Object sender, RoutedEventArgs e) 
+    {
+        var button = (Button)sender;
+        int plantId = (int)button.CommandParameter;
+        await _plantService.WaterPlantAsync(plantId, "");
         await _viewModel.LoadPlantsAsync();
     }
 

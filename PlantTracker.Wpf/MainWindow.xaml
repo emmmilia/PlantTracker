@@ -19,8 +19,19 @@
                                     DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="Species"
                                     DisplayMemberBinding="{Binding Species.Name}"/>
-                    <GridViewColumn Header="Date Added"
-                                    DisplayMemberBinding="{Binding DateAdded}"/>
+                    <GridViewColumn Header="Status"
+                                    DisplayMemberBinding="{Binding PlantStatus}"/>
+                    <GridViewColumn Header="Last Watered"
+                                    DisplayMemberBinding="{Binding LastWatered}"/>
+                    <GridViewColumn Header="Notes"
+                                    DisplayMemberBinding="{Binding Notes}"/>
+                    <GridViewColumn Header="Actions">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Water" Click="WaterButton_Click" CommandParameter="{Binding Id}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
