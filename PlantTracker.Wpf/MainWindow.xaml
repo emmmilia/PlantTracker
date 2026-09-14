@@ -18,7 +18,7 @@
                     <GridViewColumn Header="Name"
                                     DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="Species"
-                                    DisplayMemberBinding="{Binding Species}"/>
+                                    DisplayMemberBinding="{Binding Species.Name}"/>
                     <GridViewColumn Header="Date Added"
                                     DisplayMemberBinding="{Binding DateAdded}"/>
                 </GridView>

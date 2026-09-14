@@ -14,11 +14,13 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Margin="10">
+            <Label Content="Plant's name:" Target="{Binding ElementName=PlantNameTextBox}" />
             <TextBox x:Name="PlantNameTextBox"
                      Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
                      Width="200"
                      Height="30"
                      Margin="0,5,0,5"/>
+            <Label Content="Plant's species:" Target="{Binding ElementName=SelectedSpeciesComboBox}" />
             <ComboBox x:Name="SelectedSpeciesComboBox"
                       ItemsSource="{Binding AvailableSpecies}"
                       SelectedItem="{Binding SelectedSpecies}"
@@ -26,16 +28,19 @@
                       Width="200"
                       Height="30"
                       Margin="0,5,0,5"/>
+            <Label Content="Plant's location:" Target="{Binding ElementName=LocationTextBox}" />
             <TextBox x:Name="LocationTextBox"
                      Text="{Binding Location, UpdateSourceTrigger=PropertyChanged}"
                      Width="200"
                      Height="30"
                      Margin="0,5,0,5"/>
+            <Label Content="Custom watering days:" Target="{Binding ElementName=CustomWateringFrequencyTextBox}" />
             <TextBox x:Name="CustomWateringFrequencyTextBox"
                      Text="{Binding CustomWateringFrequencyDaysInput, UpdateSourceTrigger=PropertyChanged}"
                      Width="200"
                      Height="30"
                      Margin="0,5,0,5"/>
+            <Label Content="Notes:" Target="{Binding ElementName=NotesTextBox}" />
             <TextBox x:Name="NotesTextBox"
                      Text="{Binding Notes, UpdateSourceTrigger=PropertyChanged}"
                      Width="200"

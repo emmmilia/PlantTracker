@@ -22,9 +22,11 @@ public partial class MainWindow : Window
         this.DataContext = _viewModel;
     }
 
-    private void AddPlantButton_Click(object sender, RoutedEventArgs e) 
+    private async void AddPlantButton_Click(object sender, RoutedEventArgs e) 
     { 
-        var addWindow = new AddPlantWindow(_plantService); addWindow.ShowDialog(); 
+        var addWindow = new AddPlantWindow(_plantService); 
+        addWindow.ShowDialog();
+        await _viewModel.LoadPlantsAsync();
     }
 
     private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
