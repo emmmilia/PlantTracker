@@ -15,6 +15,13 @@
         <ListView ItemsSource="{Binding Plants}" Margin="10,50,10,10">
             <ListView.View>
                 <GridView>
+                    <GridViewColumn Header="">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Water" Click="WaterButton_Click" CommandParameter="{Binding Id}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                     <GridViewColumn Header="Name"
                                     DisplayMemberBinding="{Binding Name}"/>
                     <GridViewColumn Header="Species"
@@ -25,10 +32,17 @@
                                     DisplayMemberBinding="{Binding LastWatered}"/>
                     <GridViewColumn Header="Notes"
                                     DisplayMemberBinding="{Binding Notes}"/>
-                    <GridViewColumn Header="Actions">
+                    <GridViewColumn Header="">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Water" Click="WaterButton_Click" CommandParameter="{Binding Id}"/>
+                                <Button Content="Edit" Click="EditButton_Click" CommandParameter="{Binding Id}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Delete" Click="DeleteButton_Click" CommandParameter="{Binding Id}"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>

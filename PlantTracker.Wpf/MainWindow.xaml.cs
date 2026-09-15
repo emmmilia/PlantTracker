@@ -42,6 +42,28 @@ public partial class MainWindow : Window
         await _viewModel.LoadPlantsAsync();
     }
 
+    private async void DeleteButton_Click(object sender, RoutedEventArgs e) 
+    {
+        var button = (Button)sender;
+        int plantId = (int)button.CommandParameter;
+        var result = MessageBox.Show("delete forever?", "delete", MessageBoxButton.YesNo);
+        if(result == MessageBoxResult.Yes) 
+        {
+            await _plantService.DeletePlantAsync(plantId);
+            await _viewModel.LoadPlantsAsync();
+        }
+    }
+
+    private async void EditButton_Click(object sender, RoutedEventArgs e) 
+    {
+        var button = (Button)sender;
+        int plantId = (int)button.CommandParameter;
+        var plant = await _plantService.GetPlantByIdAsync(plantId);
+        var editWindow = new AddPlantWindow(_plantService, plant);
+        editWindow.ShowDialog();
+        await _viewModel.LoadPlantsAsync();
+    }
+
     private async void WateringCheckTimer_Tick(object sender, EventArgs e) 
     {
         var plants = await _plantService.GetAllPlantsAsync();
@@ -51,7 +73,7 @@ public partial class MainWindow : Window
             string plantNames = string.Join(",", thirstyPlants.Select(p => p.Name));
 
             new ToastContentBuilder()
-                .AddText("💧Time to water!!")
+                .AddText("💧 time to water!!")
                 .AddText($"{thirstyPlants.Count} plant/s need water: {plantNames}")
                 .Show();
         }

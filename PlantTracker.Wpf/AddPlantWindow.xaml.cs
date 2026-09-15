@@ -1,4 +1,5 @@
-﻿using PlantTracker.Data;
+﻿using PlantTracker.Core;
+using PlantTracker.Data;
 using PlantTracker.Wpf.ViewModels;
 using System.Windows;
 
@@ -12,6 +13,11 @@ namespace PlantTracker.Wpf
             InitializeComponent();
             _viewModel = new AddPlantViewModel(plantService);
             this.DataContext = _viewModel;
+        }
+        public AddPlantWindow(PlantService plantService, Plant plantToEdit) : this(plantService) 
+        { 
+            _viewModel = new AddPlantViewModel(plantService, plantToEdit); 
+            this.DataContext = _viewModel; 
         }
         private async void AddPlantWindow_Loaded(object sender, RoutedEventArgs e)
         {

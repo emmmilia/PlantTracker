@@ -14,7 +14,18 @@ namespace PlantTracker.Wpf.ViewModels
     {
         private readonly PlantService _plantService;
         public event PropertyChangedEventHandler? PropertyChanged;
+        private Plant _editingPlant;
         public ObservableCollection<Species> AvailableSpecies { get; set; } = new ObservableCollection<Species>();
+
+        public AddPlantViewModel(PlantService plantService, Plant plantToEdit) : this(plantService) 
+        {   
+            _editingPlant = plantToEdit;
+            Name = plantToEdit.Name;
+            Location = plantToEdit.Location;
+            Notes = plantToEdit.Notes;
+            CustomWateringFrequencyDaysInput = plantToEdit.CustomWateringFrequencyDays?.ToString() ?? "";
+            SelectedSpecies = plantToEdit.Species; 
+        }
 
         public AddPlantViewModel(PlantService plantService)
         {
@@ -49,20 +60,36 @@ namespace PlantTracker.Wpf.ViewModels
                     throw new FormatException("custom watering frequency must be a valid integer.");
                 }
             }
-            var newPlant = new Plant()
-            {
-                Name = Name,
-                Location = Location,
-                Notes = Notes,
-                SpeciesId = SelectedSpecies.Id,
-                CustomWateringFrequencyDays = customFrequency,
-                LastWatered = DateTime.Now,
-                DateAdded = DateTime.Now,
-                StatusLastUpdated = DateTime.Now
-            };
-            newPlant.Species = SelectedSpecies; // la especie entera para calcular el status :p
-            newPlant.PlantStatus = newPlant.CalculateStatus();
-            await _plantService.AddPlantAsync(newPlant);
+            //chequear si la estan editando
+            if (_editingPlant != null)
+            {   //si la estan editando actualizar la planta existente
+                _editingPlant.Name = Name;
+                _editingPlant.Location = Location;
+                _editingPlant.Notes = Notes;
+                _editingPlant.SpeciesId = SelectedSpecies.Id;
+                _editingPlant.Species = SelectedSpecies;
+                _editingPlant.CustomWateringFrequencyDays = customFrequency;
+                _editingPlant.PlantStatus = _editingPlant.CalculateStatus();
+
+                _plantService.UpdatePlantAsync(_editingPlant);
+            }
+            else
+            { //sino crear la planta nueva
+                var newPlant = new Plant()
+                {
+                    Name = Name,
+                    Location = Location,
+                    Notes = Notes,
+                    SpeciesId = SelectedSpecies.Id,
+                    CustomWateringFrequencyDays = customFrequency,
+                    LastWatered = DateTime.Now,
+                    DateAdded = DateTime.Now,
+                    StatusLastUpdated = DateTime.Now
+                };
+                newPlant.Species = SelectedSpecies; // la especie entera para calcular el status :p
+                newPlant.PlantStatus = newPlant.CalculateStatus();
+                await _plantService.AddPlantAsync(newPlant);
+            }
         }
 
         private string _name;
