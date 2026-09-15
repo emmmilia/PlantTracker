@@ -14,7 +14,7 @@ public partial class MainWindow : Window
     private readonly MainViewModel _viewModel;
     public PlantService _plantService;
 
-    public MainWindow()
+   public MainWindow()
     {
         InitializeComponent();
 
