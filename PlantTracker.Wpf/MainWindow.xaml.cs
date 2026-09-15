@@ -3,13 +3,17 @@ using System.Windows.Controls;
 using Microsoft.EntityFrameworkCore;
 using PlantTracker.Data;
 using PlantTracker.Wpf.ViewModels;
+using System.Windows.Threading;
+using CommunityToolkit.WinUI.Notifications;
 
 namespace PlantTracker.Wpf;
 
 public partial class MainWindow : Window
 {
+    private DispatcherTimer _wateringCheckTimer;
     private readonly MainViewModel _viewModel;
     public PlantService _plantService;
+
     public MainWindow()
     {
         InitializeComponent();
@@ -30,7 +34,7 @@ public partial class MainWindow : Window
         await _viewModel.LoadPlantsAsync();
     }
 
-    private async void WaterButton_Click(Object sender, RoutedEventArgs e) 
+    private async void WaterButton_Click(object sender, RoutedEventArgs e) 
     {
         var button = (Button)sender;
         int plantId = (int)button.CommandParameter;
@@ -38,8 +42,27 @@ public partial class MainWindow : Window
         await _viewModel.LoadPlantsAsync();
     }
 
+    private async void WateringCheckTimer_Tick(object sender, EventArgs e) 
+    {
+        var plants = await _plantService.GetAllPlantsAsync();
+        var thirstyPlants = plants.Where(p => p.CalculateStatus() >= Core.PlantStatus.Thirsty).ToList();
+        if (thirstyPlants.Any()) 
+        {
+            string plantNames = string.Join(",", thirstyPlants.Select(p => p.Name));
+
+            new ToastContentBuilder()
+                .AddText("💧Time to water!!")
+                .AddText($"{thirstyPlants.Count} plant/s need water: {plantNames}")
+                .Show();
+        }
+    }
+
     private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
+        _wateringCheckTimer = new DispatcherTimer();
+        _wateringCheckTimer.Interval = TimeSpan.FromHours(4);
+        _wateringCheckTimer.Tick += WateringCheckTimer_Tick;
+        _wateringCheckTimer.Start();
         await _viewModel.LoadPlantsAsync();
     }
 
