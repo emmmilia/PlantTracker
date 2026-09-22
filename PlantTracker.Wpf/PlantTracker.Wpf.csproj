@@ -1,6 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <None Remove="fonts\VT323-Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PlantTracker.Core\PlantTracker.Core.csproj" />
     <ProjectReference Include="..\PlantTracker.Data\PlantTracker.Data.csproj" />
   </ItemGroup>
@@ -11,6 +15,10 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="fonts\VT323-Regular.ttf" />
   </ItemGroup>
 
   <PropertyGroup>

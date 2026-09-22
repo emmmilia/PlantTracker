@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:PlantTracker.Wpf"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <FontFamily x:Key="PixelFont">/fonts/#VT323</FontFamily>
     </Application.Resources>
 </Application>

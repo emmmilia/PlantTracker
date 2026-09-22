@@ -46,8 +46,8 @@ public partial class MainWindow : Window
     {
         var button = (Button)sender;
         int plantId = (int)button.CommandParameter;
-        var result = MessageBox.Show("delete forever?", "delete", MessageBoxButton.YesNo);
-        if(result == MessageBoxResult.Yes) 
+        var dialog = new ConfirmDialog("delete forever?") { Owner = this };
+        if (dialog.ShowDialog() == true)
         {
             await _plantService.DeletePlantAsync(plantId);
             await _viewModel.LoadPlantsAsync();

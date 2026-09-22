@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PlantTracker.Wpf"
         mc:Ignorable="d"
-        FontFamily="Segoe UI" 
-        FontSize="14"
+        FontFamily="{StaticResource PixelFont}"
+        FontSize="16"
         Background="#F5F5F0"
         Loaded="MainWindow_Loaded"
         Title="MainWindow"
@@ -15,39 +15,41 @@
     <Grid>
         <Button Content="Add Plant" Click="AddPlantButton_Click" 
         HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"
-        Background="#4CAF50" Foreground="White" Padding="10,5" BorderThickness="0"/>
+        Background="#b8d8be" Foreground="White" Padding="10,5" BorderThickness="0"/>
         <ListView ItemsSource="{Binding Plants}" BorderThickness="0" Margin="10,50,10,10">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="60" >
+                    <GridViewColumn Width="75">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Button Content="Water" Click="WaterButton_Click" CommandParameter="{Binding Id}"
-        Background="#4CAF50" Foreground="White" Padding="10,5" BorderThickness="0"/>
+                        Background="#b8d8be" Foreground="White" Padding="8,2" BorderThickness="0"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Header="Name"
-                                    DisplayMemberBinding="{Binding Name}" Width="125"/>
+                    DisplayMemberBinding="{Binding Name}" Width="100"/>
                     <GridViewColumn Header="Species"
-                                    DisplayMemberBinding="{Binding Species.Name}" Width="120" />
+                    DisplayMemberBinding="{Binding Species.Name}" Width="145"/>
                     <GridViewColumn Header="Status"
-                                    DisplayMemberBinding="{Binding PlantStatus}" Width="80" />
+                    DisplayMemberBinding="{Binding PlantStatus}" Width="75"/>
                     <GridViewColumn Header="Last Watered"
-                                    DisplayMemberBinding="{Binding LastWatered}" Width="82" />
+                    DisplayMemberBinding="{Binding LastWatered, StringFormat=dd/MM/yy}" Width="105"/>
                     <GridViewColumn Header="Notes"
-                                    DisplayMemberBinding="{Binding Notes}" Width="120"/>
-                    <GridViewColumn Header="" Width="60">
+                    DisplayMemberBinding="{Binding Notes}" Width="130"/>
+                    <GridViewColumn Width="55">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content=" Edit " Click="EditButton_Click" CommandParameter="{Binding Id}"/>
+                                <Button Content="Edit" Padding="6,0" Click="EditButton_Click" CommandParameter="{Binding Id}"
+                                        Background="#b8d8be" Foreground="White" BorderThickness="0"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn Header="" Width="60">
+                    <GridViewColumn Width="65">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Delete" Click="DeleteButton_Click" CommandParameter="{Binding Id}"/>
+                                <Button Content="Delete" Padding="6,0" Click="DeleteButton_Click" CommandParameter="{Binding Id}"
+                                        Background="#b8d8be" Foreground="White" BorderThickness="0"/>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
