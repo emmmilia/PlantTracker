@@ -10,51 +10,94 @@
         Background="#F5F5F0"
         Loaded="MainWindow_Loaded"
         Title="MainWindow"
-        Height="450"
+        Height="550"
         Width="800">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <!-- el color de cada botón -->
+                            <Border Background="{TemplateBinding Background}" CornerRadius="4"/>
+                            <!-- capa oscura que aparece en hover -->
+                            <Border x:Name="Overlay" Background="Black" Opacity="0" CornerRadius="4"/>
+                            <ContentPresenter Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Overlay" Property="Opacity" Value="0.15"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Overlay" Property="Opacity" Value="0.3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
     <Grid>
-        <Button Content="Add Plant" Click="AddPlantButton_Click" 
-        HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"
-        Background="#b8d8be" Foreground="White" Padding="10,5" BorderThickness="0"/>
-        <ListView ItemsSource="{Binding Plants}" BorderThickness="0" Margin="10,50,10,10">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Width="75">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Water" Click="WaterButton_Click" CommandParameter="{Binding Id}"
-                        Background="#b8d8be" Foreground="White" Padding="8,2" BorderThickness="0"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Header="Name"
-                    DisplayMemberBinding="{Binding Name}" Width="100"/>
-                    <GridViewColumn Header="Species"
-                    DisplayMemberBinding="{Binding Species.Name}" Width="145"/>
-                    <GridViewColumn Header="Status"
-                    DisplayMemberBinding="{Binding PlantStatus}" Width="75"/>
-                    <GridViewColumn Header="Last Watered"
-                    DisplayMemberBinding="{Binding LastWatered, StringFormat=dd/MM/yy}" Width="105"/>
-                    <GridViewColumn Header="Notes"
-                    DisplayMemberBinding="{Binding Notes}" Width="130"/>
-                    <GridViewColumn Width="55">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Edit" Padding="6,0" Click="EditButton_Click" CommandParameter="{Binding Id}"
-                                        Background="#b8d8be" Foreground="White" BorderThickness="0"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="65">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Delete" Padding="6,0" Click="DeleteButton_Click" CommandParameter="{Binding Id}"
-                                        Background="#b8d8be" Foreground="White" BorderThickness="0"/>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <Button Content="Add Plant" Click="AddPlantButton_Click"
+                HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"
+                Background="#96ceb4" Padding="10,5"/>
+
+        <!-- La tarjeta con las flechitas -->
+        <Grid Margin="10,50,10,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="&lt;" Click="PreviousButton_Click"
+                    Background="#96ceb4" Width="40" Height="40" VerticalAlignment="Center"/>
+
+            <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Border DataContext="{Binding currentPlant}"
+                        Background="White" CornerRadius="8" Padding="20" Width="320">
+                    <StackPanel>
+                        <!-- espacio para la foto -->
+                        <Border Height="140" Background="#E8F5E9" CornerRadius="6" Margin="0,0,0,15">
+                            <TextBlock Text="(foto)" Foreground="#8FBF98"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+
+                        <TextBlock Text="{Binding Name}" FontSize="26" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding Species.Name}" Foreground="Gray"
+                                   HorizontalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <TextBlock Text="{Binding PlantStatus, StringFormat='Status: {0}'}"/>
+                        <TextBlock Text="{Binding LastWatered, StringFormat='Last watered: {0:dd/MM/yy}'}"/>
+                        <TextBlock Text="{Binding DataContext.NextWateringText,
+                                          RelativeSource={RelativeSource AncestorType=Window},
+                                          StringFormat='Next watering: {0}'}"/>
+                        <TextBlock Text="{Binding Notes}" TextWrapping="Wrap"
+                                   Foreground="Gray" Margin="0,10,0,0"/>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
+                            <Button Content="Water" Click="WaterButton_Click" CommandParameter="{Binding Id}"
+                                    Background="#7aa2cf" Padding="12,4" Margin="0,0,8,0"/>
+                            <Button Content="Edit" Click="EditButton_Click" CommandParameter="{Binding Id}"
+                                    Background="#a2798f" Padding="12,4" Margin="0,0,8,0"/>
+                            <Button Content="Delete" Click="DeleteButton_Click" CommandParameter="{Binding Id}"
+                                    Background="#f47a62" Padding="12,4"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <TextBlock Text="{Binding PositionText}" Foreground="Gray"
+                           HorizontalAlignment="Center" Margin="0,8,0,0"/>
+            </StackPanel>
+
+            <Button Grid.Column="2" Content="&gt;" Click="NextButton_Click"
+                    Background="#96ceb4" Width="40" Height="40" VerticalAlignment="Center"/>
+        </Grid>
     </Grid>
 </Window>

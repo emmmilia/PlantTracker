@@ -27,6 +27,9 @@ public partial class MainWindow : Window
         this.DataContext = _viewModel;
     }
 
+    private void PreviousButton_Click(object sender, RoutedEventArgs e) => _viewModel.PreviousPlant();
+    private void NextButton_Click(object sender, RoutedEventArgs e) => _viewModel.NextPlant();
+
     private async void AddPlantButton_Click(object sender, RoutedEventArgs e) 
     { 
         var addWindow = new AddPlantWindow(_plantService); 
