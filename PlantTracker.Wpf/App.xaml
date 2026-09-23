@@ -5,5 +5,7 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <FontFamily x:Key="PixelFont">/fonts/#VT323</FontFamily>
+        <local:PathToImageConverter x:Key="PathToImage"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
     </Application.Resources>
 </Application>

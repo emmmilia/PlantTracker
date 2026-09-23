@@ -6,6 +6,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PlantTracker.Wpf"
+        Closed="AddPlantWindow_Closed"
         mc:Ignorable="d"
         Loaded="AddPlantWindow_Loaded"
         Title="AddPlantWindow"
@@ -152,6 +153,21 @@
                      Width="200"
                      Height="30"
                      Margin="0,5,0,5"/>
+            <Label Content="Photo:"/>
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                <Border Width="60" Height="60" CornerRadius="4" Background="#E8F5E9"
+            BorderBrush="#B8D8BE" BorderThickness="2" Margin="0,0,10,0">
+                    <Border CornerRadius="2">
+                        <Border.Background>
+                            <ImageBrush ImageSource="{Binding PhotoPath, Converter={StaticResource PathToImage}}"
+                            Stretch="UniformToFill"/>
+                        </Border.Background>
+                    </Border>
+                </Border>
+                <Button Content="Choose photo" Click="ChoosePhotoButton_Click"
+            Background="#B8D8BE" Foreground="White" BorderThickness="0"
+            Padding="10,4" VerticalAlignment="Center"/>
+            </StackPanel>
             <Button x:Name="AddPlantButton"
                     Content="Save Plant"
                     Click="SaveButton_Click"

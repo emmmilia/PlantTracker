@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PlantTracker.Wpf"
+        PreviewKeyDown="MainWindow_PreviewKeyDown"
         mc:Ignorable="d"
         FontFamily="{StaticResource PixelFont}"
         FontSize="16"
@@ -48,8 +49,9 @@
                 HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"
                 Background="#96ceb4" Padding="10,5"/>
 
-        <!-- La tarjeta con las flechitas -->
-        <Grid Margin="10,50,10,10">
+        <!-- La tarjeta con las flechitas (solo si hay plantas) -->
+        <Grid Margin="10,50,10,10"
+              Visibility="{Binding HasPlants, Converter={StaticResource BoolToVis}}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -60,13 +62,21 @@
                     Background="#96ceb4" Width="40" Height="40" VerticalAlignment="Center"/>
 
             <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Border DataContext="{Binding currentPlant}"
+                <Border DataContext="{Binding CurrentPlant}"
                         Background="White" CornerRadius="8" Padding="20" Width="320">
                     <StackPanel>
                         <!-- espacio para la foto -->
                         <Border Height="140" Background="#E8F5E9" CornerRadius="6" Margin="0,0,0,15">
-                            <TextBlock Text="(foto)" Foreground="#8FBF98"
-                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Grid>
+                                <TextBlock Text="(foto)" Foreground="#8FBF98"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Border CornerRadius="6">
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="{Binding PhotoPath, Converter={StaticResource PathToImage}}"
+                                                    Stretch="UniformToFill"/>
+                                    </Border.Background>
+                                </Border>
+                            </Grid>
                         </Border>
 
                         <TextBlock Text="{Binding Name}" FontSize="26" HorizontalAlignment="Center"/>
@@ -99,5 +109,11 @@
             <Button Grid.Column="2" Content="&gt;" Click="NextButton_Click"
                     Background="#96ceb4" Width="40" Height="40" VerticalAlignment="Center"/>
         </Grid>
+
+        <!-- Mensaje cuando no hay plantas -->
+        <TextBlock Text="no plants yet... add one! 🌱"
+                   FontSize="22" Foreground="#8FBF98"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Visibility="{Binding HasNoPlants, Converter={StaticResource BoolToVis}}"/>
     </Grid>
 </Window>

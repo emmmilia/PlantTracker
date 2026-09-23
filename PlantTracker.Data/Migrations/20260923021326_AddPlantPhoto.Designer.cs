@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PlantTracker.Data;
 
@@ -10,9 +11,11 @@ using PlantTracker.Data;
 namespace PlantTracker.Data.Migrations
 {
     [DbContext(typeof(PlantTrackerDBContext))]
-    partial class PlantTrackerDBContextModelSnapshot : ModelSnapshot
+    [Migration("20260923021326_AddPlantPhoto")]
+    partial class AddPlantPhoto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");

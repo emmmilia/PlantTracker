@@ -15,14 +15,24 @@ namespace PlantTracker.Wpf.ViewModels
         private readonly PlantService _plantService;
         public event PropertyChangedEventHandler? PropertyChanged;
         private Plant _editingPlant;
+        private string? _photoPath;
+        private string? _originalPhotoPath;
+        public bool IsSaved { get; private set; }
+        public string? PhotoPath
+        {
+            get => _photoPath;
+            set { _photoPath = value; OnPropertyChanged(nameof(PhotoPath)); }
+        }
         public ObservableCollection<Species> AvailableSpecies { get; set; } = new ObservableCollection<Species>();
 
         public AddPlantViewModel(PlantService plantService, Plant plantToEdit) : this(plantService) 
         {   
             _editingPlant = plantToEdit;
+            PhotoPath = plantToEdit.PhotoPath;
             Name = plantToEdit.Name;
             Location = plantToEdit.Location;
             Notes = plantToEdit.Notes;
+            _originalPhotoPath = plantToEdit.PhotoPath;
             CustomWateringFrequencyDaysInput = plantToEdit.CustomWateringFrequencyDays?.ToString() ?? "";
             SelectedSpecies = plantToEdit.Species; 
         }
@@ -30,6 +40,20 @@ namespace PlantTracker.Wpf.ViewModels
         public AddPlantViewModel(PlantService plantService)
         {
             _plantService = plantService;
+        }
+        public void SetNewPhoto(string sourcePath)
+        {
+            // si ya habían elegido otra foto en esta ventana, esa ya no sirve
+            if (PhotoPath != _originalPhotoPath)
+                PhotoStorage.Delete(PhotoPath);
+
+            PhotoPath = PhotoStorage.Save(sourcePath);
+        }
+
+        public void DiscardUnsavedPhoto()
+        {
+            if (PhotoPath != _originalPhotoPath)
+                PhotoStorage.Delete(PhotoPath);
         }
 
         public async Task LoadSpeciesAsync()
@@ -70,8 +94,11 @@ namespace PlantTracker.Wpf.ViewModels
                 _editingPlant.Species = SelectedSpecies;
                 _editingPlant.CustomWateringFrequencyDays = customFrequency;
                 _editingPlant.PlantStatus = _editingPlant.CalculateStatus();
+                _editingPlant.PhotoPath = PhotoPath;
 
-                _plantService.UpdatePlantAsync(_editingPlant);
+                await _plantService.UpdatePlantAsync(_editingPlant);
+                if (_originalPhotoPath != PhotoPath)
+                    PhotoStorage.Delete(_originalPhotoPath);
             }
             else
             { //sino crear la planta nueva
@@ -82,6 +109,7 @@ namespace PlantTracker.Wpf.ViewModels
                     Notes = Notes,
                     SpeciesId = SelectedSpecies.Id,
                     CustomWateringFrequencyDays = customFrequency,
+                    PhotoPath = PhotoPath,
                     LastWatered = DateTime.Now,
                     DateAdded = DateTime.Now,
                     StatusLastUpdated = DateTime.Now
@@ -90,6 +118,7 @@ namespace PlantTracker.Wpf.ViewModels
                 newPlant.PlantStatus = newPlant.CalculateStatus();
                 await _plantService.AddPlantAsync(newPlant);
             }
+            IsSaved = true;
         }
 
         private string _name;

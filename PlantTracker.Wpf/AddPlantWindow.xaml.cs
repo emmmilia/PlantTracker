@@ -27,6 +27,23 @@ namespace PlantTracker.Wpf
         {
             InitializeComponent();
         }
+        private void ChoosePhotoButton_Click(object sender, RoutedEventArgs e)
+        {
+            var dialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Title = "Choose a photo",
+                Filter = "Images|*.jpg;*.jpeg;*.png;*.bmp"
+            };
+
+            if (dialog.ShowDialog() == true)
+                _viewModel.SetNewPhoto(dialog.FileName);
+        }
+
+        private void AddPlantWindow_Closed(object sender, EventArgs e)
+        {
+            if (!_viewModel.IsSaved)
+                _viewModel.DiscardUnsavedPhoto();
+        }
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e) 
         { 

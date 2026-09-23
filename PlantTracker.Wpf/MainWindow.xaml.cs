@@ -5,6 +5,7 @@ using PlantTracker.Data;
 using PlantTracker.Wpf.ViewModels;
 using System.Windows.Threading;
 using CommunityToolkit.WinUI.Notifications;
+using System.Windows.Input;
 
 namespace PlantTracker.Wpf;
 
@@ -52,7 +53,9 @@ public partial class MainWindow : Window
         var dialog = new ConfirmDialog("delete forever?") { Owner = this };
         if (dialog.ShowDialog() == true)
         {
+            string? photo = _viewModel.CurrentPlant?.PhotoPath;
             await _plantService.DeletePlantAsync(plantId);
+            PhotoStorage.Delete(photo);
             await _viewModel.LoadPlantsAsync();
         }
     }
@@ -81,7 +84,19 @@ public partial class MainWindow : Window
                 .Show();
         }
     }
-
+    private void MainWindow_PreviewKeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Left)
+        {
+            _viewModel.PreviousPlant();
+            e.Handled = true;
+        }
+        else if (e.Key == Key.Right)
+        {
+            _viewModel.NextPlant();
+            e.Handled = true;
+        }
+    }
     private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
         _wateringCheckTimer = new DispatcherTimer();

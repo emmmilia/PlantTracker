@@ -19,6 +19,7 @@ namespace PlantTracker.Core
         public DateTime DateAdded { get; set; }
         public string? Location { get; set; }
         public string? Notes { get; set; }
+        public string? PhotoPath { get; set; }
 
         public Plant(int id, string name, int SpeciesId, DateTime lastWatered, int? customWateringFrequencyDays, PlantStatus plantStatus, DateTime statusLastUpdated, DateTime dateAdded, string? location, string? notes)
         {

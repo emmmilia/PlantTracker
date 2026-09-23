@@ -10,14 +10,16 @@ namespace PlantTracker.Wpf.ViewModels
         public ObservableCollection<Plant> Plants { get; set; } = new ObservableCollection<Plant>();
         private readonly PlantService _plantService;
         private int _currentIndex;
-        public Plant? currentPlant => Plants.Count > 0 ? Plants[_currentIndex] : null;
+        public bool HasPlants => Plants.Count > 0;
+        public bool HasNoPlants => Plants.Count == 0;
+        public Plant? CurrentPlant => Plants.Count > 0 ? Plants[_currentIndex] : null;
         public string PositionText => Plants.Count > 0 ? $"{_currentIndex + 1} / {Plants.Count}" : "0 / 0";
         public string NextWateringText 
         {
             get
             {
-                if (currentPlant is null) return "";
-                DateTime next = GetNextWatering(currentPlant);
+                if (CurrentPlant is null) return "";
+                DateTime next = GetNextWatering(CurrentPlant);
                 int days = (next.Date - DateTime.Today).Days;
 
                 return days switch
@@ -51,9 +53,11 @@ namespace PlantTracker.Wpf.ViewModels
 
         private void RefreshCurrent() 
         {
-            OnPropertyChanged(nameof(currentPlant));
+            OnPropertyChanged(nameof(CurrentPlant));
             OnPropertyChanged(nameof(PositionText));
             OnPropertyChanged(nameof(NextWateringText));
+            OnPropertyChanged(nameof(HasPlants));
+            OnPropertyChanged(nameof(HasNoPlants));
         }
 
         public MainViewModel(PlantService plantService)
